@@ -98,7 +98,6 @@ $(document).ready(function() {
     var body = $('body');
     var frontButton = $('#play');
     var playButton = $('<button>');
-    // var sec = 60;
     var countdown = $('<div>');
     countdown.attr("id", "counter");
 
@@ -108,6 +107,7 @@ $(document).ready(function() {
     }
 
     var sec = 60;
+    
 		var timer = function() {
         setInterval(function() {
             $(countdown).text(sec--);
@@ -117,6 +117,34 @@ $(document).ready(function() {
             }
             }, 1000);
         }
+
+
+function shuffleArray(logos) {
+    for (var i = logos.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = logos[i];
+        logos[i] = logos[j];
+        logos[j] = temp;
+    }
+    return logos[i].img;
+}
+
+
+    playButton.click(function() {
+      playButton.remove();
+      body.append(countdown);
+      countdown.show();
+      timer();	
+      var randomLogo = $('<img>');
+      body.append(randomLogo);
+      randomLogo.attr("src", shuffleArray(logos));
+  })
+
+
+
+
+
+
 
 
     frontButton.click(function() {
@@ -135,30 +163,6 @@ $(document).ready(function() {
         inputBox.attr("id", "input");
         body.append(inputBox);
     })
-
-    playButton.click(function() {
-      playButton.remove();
-      body.append(countdown);
-      countdown.show();
-      timer();	
-  })
-
-
-
-
-
-
-
-
-function shuffleArray(logos) {
-    for (var i = logos.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = logos[i];
-        logos[i] = logos[j];
-        logos[j] = temp;
-    }
-    return logos[i].img;
-}
 
 
 
