@@ -30,124 +30,277 @@ $(document).ready(function() {
     //
     // things I need: 
 
-    var logos = [
-    {
+    // create
+    // modify
+    // append
+
+    var logos = [{
         name: "Washington Capitals",
+        wrong1: "Colorado Avalanche",
+        wrong2: "Vancouver Canucks",
+        wrong3: "Pittsburgh Penguins",
         img: "./logos/caps.jpg"
     }, {
         name: "Portland Trail Blazers",
+        wrong1: "Washington Wizards",
+        wrong2: "OkC Thunder",
+        wrong3: "Sacramento Kings",
         img: "./logos/blazers.jpg"
     }, {
         name: "Toronto Blue Jays",
+        wrong1: "Baltimore Orioles",
+        wrong2: "St. Louis Cardinals",
+        wrong3: "Miami Marlins",
         img: "./logos/bluejays.jpg"
     }, {
         name: "Houston Texans",
+        wrong1: "Dallas Cowboys",
+        wrong2: "Indianapolis Colts",
+        wrong3: "Buffalo Bills",
         img: "./logos/texans.jpg"
     }, {
         name: "Milwaukee Brewers",
+        wrong1: "Chicago Cubs",
+        wrong2: "San Diego Padres",
+        wrong3: "Cincinnati Reds",
         img: "./logos/brewers.jpg"
     }, {
         name: "Chicago Bulls",
+        wrong1: "Los Angeles Lakers",
+        wrong2: "Milwaukee Bucks",
+        wrong3: "Detroit Pistons",
         img: "./logos/bulls.jpg"
     }, {
         name: "Anaheim Ducks",
+        wrong1: "The Mighty Ducks",
+        wrong2: "Nashville Predators",
+        wrong3: "Calgary Flames",
         img: "./logos/ducks.jpg"
     }, {
         name: "Jacksonville Jaguars",
+        wrong1: "Kansas City Chiefs",
+        wrong2: "Denver Broncos",
+        wrong3: "Chicago Bears",
         img: "./logos/jags.jpg"
     }, {
         name: "Miami Heat",
+        wrong1: "Orlando Magic",
+        wrong2: "Los Angeles Clippers",
+        wrong3: "Cleveland Cavaliers",
         img: "./logos/heat.jpg"
     }, {
         name: "Minnesota Twins",
+        wrong1: "Detroit Tigers",
+        wrong2: "Kansas City Royals",
+        wrong3: "Houston Astros",
         img: "./logos/twins.jpg"
     }, {
         name: "Golden State Warriors",
+        wrong1: "Philadelphia 76ers",
+        wrong2: "Seattle Supersonics",
+        wrong3: "Houston Rockets",
         img: "./logos/warriors.jpg"
     }, {
         name: "Tennessee Titans",
+        wrong1: "Houston Oilers",
+        wrong2: "Los Angeles Rams",
+        wrong3: "Miami Dolphins",
         img: "./logos/titans.jpg"
     }, {
         name: "Buffalo Sabres",
+        wrong1: "San Jose Sharks",
+        wrong2: "Arizona Coyotes",
+        wrong3: "Minnesota Wild",
         img: "./logos/sabres.jpg"
     }, {
         name: "Philadelphia Phillies",
+        wrong1: "Washington Nationals",
+        wrong2: "Colorado Rockies",
+        wrong3: "Pittsburgh Pirates",
         img: "./logos/phillies.jpg"
     }, {
         name: "Indiana Pacers",
+        wrong1: "Boston Celtics",
+        wrong2: "Atlanta Hawks",
+        wrong3: "Dallas Mavericks",
         img: "./logos/pacers.jpg"
     }, {
         name: "Tampa Bay Lightning",
+        wrong1: "Los Angeles Chargers",
+        wrong2: "St. Louis Blues",
+        wrong3: "Ottawa Senators",
         img: "./logos/lightning.jpg"
     }, {
         name: "New England Patriots",
+        wrong1: "Green Bay Packers",
+        wrong2: "Minnesota Vikings",
+        wrong3: "San Francisco 49ers",
         img: "./logos/patriots.jpg"
     }, {
         name: "New York Mets",
+        wrong1: "New York Yankees",
+        wrong2: "Texas Rangers",
+        wrong3: "Oakland Athletics",
         img: "./logos/mets.jpg"
     }, {
         name: "New Orleans Saints",
+        wrong1: "Seattle Seahawks",
+        wrong2: "New York Jets",
+        wrong3: "Cleveland Browns",
         img: "./logos/saints.jpg"
     }, {
         name: "Detroit Red Wings",
+        wrong1: "Winnipeg Jets",
+        wrong2: "New Jersey Devils",
+        wrong3: "Dallas Stars",
         img: "./logos/redwings.jpg"
     }]
 
-    // console.log(logos[19].name);
+    var body = $('body'); // creating global variable for body
 
-    var body = $('body');
-    var frontButton = $('#play');
     var playButton = $('<button>');
+
+    var frontButton = $('#play');
+
     var countdown = $('<div>');
     countdown.attr("id", "counter");
 
     var selectedLogo = []
-    var correctAnswers = {
+    var rightAnswers = []
 
+
+
+
+
+    var shuffleLogos = function shuffleArray(logos) {
+        for (var i = logos.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = logos[i];
+            logos[i] = logos[j];
+            logos[j] = temp;
+        }
+        return logos;
     }
 
+    var newLogos = shuffleLogos(logos);
+
+    var generateRandomLogo = function(array) {
+        for (var i = 0; i < array.length; i++) {
+            return array[i].img;
+        }
+    }
+
+    var generateIncorrectOne = function(array) {
+        for (var i = 0; i < array.length; i++) {
+            return array[i].wrong1;
+        }
+    }
+
+    var generateIncorrectTwo = function(array) {
+        for (var i = 0; i < array.length; i++) {
+            return array[i].wrong2;
+        }
+    }
+
+    var generateIncorrectThree = function(array) {
+        for (var i = 0; i < array.length; i++) {
+            return array[i].wrong3;
+        }
+    }
+
+    var generateRightAnswer = function(array) {
+        for (var i = 0; i < array.length; i++) {
+            return array[i].name;
+        }
+    }
+  
+
+    var next = 0;
+
     var sec = 60;
-    
-		var timer = function() {
+
+    var timer = function() {
         setInterval(function() {
             $(countdown).text(sec--);
             if (sec == -1) {
                 $(countdown).fadeOut('fast');
-                clearInterval(timer);   
+                clearInterval(timer);
             }
-            }, 1000);
-        }
-
-
-function shuffleArray(logos) {
-    for (var i = logos.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = logos[i];
-        logos[i] = logos[j];
-        logos[j] = temp;
+        }, 1000);
     }
-    return logos[i].img;
-}
+
+  		var randomLogo = $('<img>'); // declaring a new img in memory
+
+  var displayLogo = function() {
+  		randomLogo.show();
+        randomLogo.attr("src", generateRandomLogo(newLogos)); // modify that new logo created
+        body.append(randomLogo);
+  }
 
 
+  var displayRightAnswer = function(){
+  		var right = $('<button>');
+        right.text(generateRightAnswer(newLogos));
+        body.append(right);
+  }
+
+  var displayWrongAnswerOne = function() {
+  		var incorrectOne = $('<button>');
+        incorrectOne.text(generateIncorrectOne(newLogos));
+        body.append(incorrectOne);
+  }
+
+  var displayWrongAnswerTwo = function() {
+  		var incorrectTwo = $('<button>');
+        incorrectTwo.text(generateIncorrectTwo(newLogos));
+        body.append(incorrectTwo);
+  }
+
+  var displayWrongAnswerThree = function() {
+  		var incorrectThree = $('<button>');
+        incorrectThree.text(generateIncorrectThree(newLogos));
+        body.append(incorrectThree);
+  }
+
+
+    //this button starts the game
     playButton.click(function() {
-      playButton.remove();
-      body.append(countdown);
-      countdown.show();
-      timer();	
-      var randomLogo = $('<img>');
-      body.append(randomLogo);
-      randomLogo.attr("src", shuffleArray(logos));
-  })
+        play();
+    })
+
+
+
+    function play() {
+        playButton.remove();
+        body.append(countdown);
+        countdown.show();
+        timer();
+        displayLogo();
+        displayRightAnswer();
+        displayWrongAnswerOne();
+        displayWrongAnswerTwo();
+        displayWrongAnswerThree();
+        // var randomLogo = $('<img>'); // declaring a new img in memory
+        // randomLogo.attr("src", generateRandomLogo(newLogos)); // modify that new logo created
+        // body.append(randomLogo); // append the logo to the dom
+        // var right = $('<button>');
+        // right.text(generateRightAnswer(newLogos));
+        // var incorrectOne = $('<button>');
+        // incorrectOne.text(generateIncorrectOne(newLogos));
+        // var incorrectTwo = $('<button>');
+        // incorrectTwo.text(generateIncorrectTwo(newLogos));
+        // var incorrectThree = $('<button>');
+        // incorrectThree.text(generateIncorrectThree(newLogos));
+        // body.append(right);
+        // body.append(incorrectOne);
+        // body.append(incorrectTwo);
+        // body.append(incorrectThree);
+    }
 
 
 
 
-
-
-
-
-    frontButton.click(function() {
+    function createGame() {
         body.css("background-color", "blue");
         frontButton.hide();
         playButton.attr("id", "begin");
@@ -159,9 +312,12 @@ function shuffleArray(logos) {
         var scoreCard = $('<div>');
         scoreCard.attr("id", "score")
         body.append(scoreCard);
-        var inputBox = $('<input>');
-        inputBox.attr("id", "input");
-        body.append(inputBox);
+    }
+
+    // this button creates the game page
+    frontButton.click(function() {
+        createGame();
+
     })
 
 
