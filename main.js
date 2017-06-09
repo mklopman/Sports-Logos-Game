@@ -157,22 +157,28 @@ $(document).ready(function() {
     }]
 
     var body = $('body'); // creating global variable for body
-
     var playButton = $('<button>');
-
-    var frontButton = $('#play');
+	var frontButton = $('#play');
 
     var countdown = $('<div>');
     countdown.attr("id", "counter");
 
-    var selectedLogo = []
+    var scoreCard = $('<div>');
+    scoreCard.attr("id", "score")
+
+
+
+    var selectedLogos = []
     var rightAnswers = []
 
+   	var currentQ = 0
+
+	var randomLogo = $('<img>'); // declaring a new img in memory
+    var right = $('<button>');
 
 
-
-
-    var shuffleLogos = function shuffleArray(logos) {
+//add attribution!!
+    var shuffleLogos = function(logos) {
         for (var i = logos.length - 1; i > 0; i--) {
             var j = Math.floor(Math.random() * (i + 1));
             var temp = logos[i];
@@ -184,41 +190,33 @@ $(document).ready(function() {
 
     var newLogos = shuffleLogos(logos);
 
-    var generateRandomLogo = function(array) {
-        for (var i = 0; i < array.length; i++) {
-            return array[i].img;
-        }
+    // var getTeam = function(array){
+	 
+
+    var displayNextQuestion = function() {
+    	var currentTeam = newLogos[currentQ];
+    	console.log(currentTeam);
+
+    	var currentLogo = $('<img>').attr("src", currentTeam.img);
+    	var right = $('<button>').text(currentTeam.name).on("click", function() {
+        	console.log("correct");
+        });
+
+	    var incorrectOne = $('<button>').text(currentTeam.wrong1);
+	    var incorrectTwo = $('<button>').text(currentTeam.wrong2);
+	    var incorrectThree = $('<button>').text(currentTeam.wrong3);
+
+	    body.append(currentLogo)
+	    body.append(right)
+	    body.append(incorrectOne)
+	    body.append(incorrectTwo)
+	    body.append(incorrectThree)
     }
 
-    var generateIncorrectOne = function(array) {
-        for (var i = 0; i < array.length; i++) {
-            return array[i].wrong1;
-        }
-    }
+   
 
-    var generateIncorrectTwo = function(array) {
-        for (var i = 0; i < array.length; i++) {
-            return array[i].wrong2;
-        }
-    }
-
-    var generateIncorrectThree = function(array) {
-        for (var i = 0; i < array.length; i++) {
-            return array[i].wrong3;
-        }
-    }
-
-    var generateRightAnswer = function(array) {
-        for (var i = 0; i < array.length; i++) {
-            return array[i].name;
-        }
-    }
-  
-
-    var next = 0;
 
     var sec = 60;
-
     var timer = function() {
         setInterval(function() {
             $(countdown).text(sec--);
@@ -229,76 +227,23 @@ $(document).ready(function() {
         }, 1000);
     }
 
-  		var randomLogo = $('<img>'); // declaring a new img in memory
-
-  var displayLogo = function() {
-  		randomLogo.show();
-        randomLogo.attr("src", generateRandomLogo(newLogos)); // modify that new logo created
-        body.append(randomLogo);
-  }
-
-
-  var displayRightAnswer = function(){
-  		var right = $('<button>');
-        right.text(generateRightAnswer(newLogos));
-        body.append(right);
-  }
-
-  var displayWrongAnswerOne = function() {
-  		var incorrectOne = $('<button>');
-        incorrectOne.text(generateIncorrectOne(newLogos));
-        body.append(incorrectOne);
-  }
-
-  var displayWrongAnswerTwo = function() {
-  		var incorrectTwo = $('<button>');
-        incorrectTwo.text(generateIncorrectTwo(newLogos));
-        body.append(incorrectTwo);
-  }
-
-  var displayWrongAnswerThree = function() {
-  		var incorrectThree = $('<button>');
-        incorrectThree.text(generateIncorrectThree(newLogos));
-        body.append(incorrectThree);
-  }
-
 
     //this button starts the game
     playButton.click(function() {
         play();
+        game();
     })
 
-
+    function game() {
+    	displayNextQuestion();
+    }
 
     function play() {
         playButton.remove();
         body.append(countdown);
         countdown.show();
         timer();
-        displayLogo();
-        displayRightAnswer();
-        displayWrongAnswerOne();
-        displayWrongAnswerTwo();
-        displayWrongAnswerThree();
-        // var randomLogo = $('<img>'); // declaring a new img in memory
-        // randomLogo.attr("src", generateRandomLogo(newLogos)); // modify that new logo created
-        // body.append(randomLogo); // append the logo to the dom
-        // var right = $('<button>');
-        // right.text(generateRightAnswer(newLogos));
-        // var incorrectOne = $('<button>');
-        // incorrectOne.text(generateIncorrectOne(newLogos));
-        // var incorrectTwo = $('<button>');
-        // incorrectTwo.text(generateIncorrectTwo(newLogos));
-        // var incorrectThree = $('<button>');
-        // incorrectThree.text(generateIncorrectThree(newLogos));
-        // body.append(right);
-        // body.append(incorrectOne);
-        // body.append(incorrectTwo);
-        // body.append(incorrectThree);
     }
-
-
-
 
     function createGame() {
         body.css("background-color", "blue");
@@ -306,12 +251,6 @@ $(document).ready(function() {
         playButton.attr("id", "begin");
         playButton.text("BEGIN!");
         body.append(playButton);
-        var logoBox = $('<div>');
-        logoBox.attr("id", "show_logo");
-        body.append(logoBox);
-        var scoreCard = $('<div>');
-        scoreCard.attr("id", "score")
-        body.append(scoreCard);
     }
 
     // this button creates the game page
