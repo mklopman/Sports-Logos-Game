@@ -1,7 +1,7 @@
 body {
+	display: flex;
 	background-color: red;
 }
-
 
 
 #counter {
@@ -10,3 +10,79 @@ body {
 	width: 30px;
 	height: 30px;
 }
+
+.logo {
+	display: flex;
+	justify-content: center;
+}
+
+
+.question-div {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.correctAnswer {
+	display: flex;
+	width: 75px;
+	height: 50px;
+
+}
+
+
+.wrong1 {
+	display: flex;
+	width: 75px;
+	height: 50px;
+}
+
+.wrong2 {
+	display: flex;
+	width: 75px;
+	height: 50px;
+}
+
+.wrong3 {
+	display: flex;
+	width: 75px;
+	height: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
