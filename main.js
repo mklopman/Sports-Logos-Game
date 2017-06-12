@@ -34,7 +34,6 @@ $(document).ready(function() {
     // modify
     // append
 
-    var finalScore = 0;
 
     var logos = [{
         name: "Washington Capitals",
@@ -170,7 +169,7 @@ $(document).ready(function() {
     countdown.attr("id", "counter");
 
     var scoreCard = $('<div>');
-    scoreCard.attr("id", "score")
+    scoreCard.attr("id", "score-card")
 
 	var selectedLogos = []
     var rightAnswers = []
@@ -178,7 +177,9 @@ $(document).ready(function() {
     var randomLogo = $('<img>'); // declaring a new img in memory
     var right = $('<button>');
 
+    body.append(scoreCard)
 
+    var instructions = $('.instructions');
 
 
     //add attribution!!
@@ -209,6 +210,7 @@ $(document).ready(function() {
 
 
     var currentTeam = {};
+
     var displayNextQuestion = function() {
         currentTeam = logos[currentQ];
 
@@ -236,25 +238,27 @@ $(document).ready(function() {
 
         var createQuestionDiv = function() {
             var questionDiv = $("<div>").addClass("question-div");
+            container.append(currentLogo);
             container.append(questionDiv);
-            questionDiv.append(currentLogo);
             questionDiv.append(shuffledAnswers[0]);
             questionDiv.append(shuffledAnswers[1]);
             questionDiv.append(shuffledAnswers[2]);
             questionDiv.append(shuffledAnswers[3]);
         }
 
+        
         createQuestionDiv();
 
     }
 
 
+    	var score = $('<p>');
+    	score.attr("id", "score")
 
     function trackScore() {
-    	var score = $('<p>');
     	score.text(currentQ);
     	scoreCard.append(score);
-    	container.append(scoreCard);
+    	// container.append(scoreCard);
     }
 
 
@@ -269,10 +273,14 @@ $(document).ready(function() {
     }
 
     function checkWin() {
-        if (rightAnswers.length === 20) {
+        if (rightAnswers.length === 20 && sec !== 0) {
             alert("YOU WON!");
+        } else if (sec === 1) {
+        	alert("BOOOOO!!!!")
         }
     }
+
+
 
     function play() {
         playButton.remove();
@@ -285,9 +293,11 @@ $(document).ready(function() {
         body.css("background-image", "url(https://www.nationalacademyofathletics.com/bbbg.jpg");
         $('#gameTitle').hide();
         frontButton.hide();
+        $('.instructions').hide();
         playButton.attr("id", "begin");
         playButton.text("BEGIN!");
         container.show();
+        scoreCard.show();
         body.append(playButton);
         body.append(container);
     }
