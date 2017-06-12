@@ -164,6 +164,8 @@ $(document).ready(function() {
     var container = $('<div>');
     container.attr("id", "container");
     
+    	var score = $('<p>');
+    	score.attr("id", "score")
 
     var countdown = $('<div>');
     countdown.attr("id", "counter");
@@ -182,28 +184,27 @@ $(document).ready(function() {
     var instructions = $('.instructions');
 
 
-    //add attribution!!
-    // var shuffleLogos = function(logos) {
-    //     for (var i = logos.length - 1; i > 0; i--) {
-    //         var j = Math.floor(Math.random() * (i + 1));
-    //         var temp = logos[i];
-    //         logos[i] = logos[j];
-    //         logos[j] = temp;
-    //     }
-    //     return logos;
-    // }
+    ////* got the shuffle Array function from stack overflow: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+    var shuffleLogos = function(logos) {
+        for (var i = logos.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = logos[i];
+            logos[i] = logos[j];
+            logos[j] = temp;
+        }
+        return logos;
+    }
 
-    // var randomizedLogos = shuffleLogos(logos);
+    var randomizedLogos = shuffleLogos(logos);
 
     // var getTeam = function(array){
-    var sec = 60;
+    var sec = 45;
     var timer = function() {
         setInterval(function() {
             $(countdown).text(sec--);
             if (sec === -2) {
                 $(countdown).fadeOut('fast');
-                clearInterval(timer);
-                alert('you suck looserface')
+                alert('BOOOOOO!!!!!!')
             }
         }, 1000);
     }
@@ -213,7 +214,7 @@ $(document).ready(function() {
     var currentTeam = {};
 
     var displayNextQuestion = function() {
-        currentTeam = logos[currentQ];
+        currentTeam = randomizedLogos[currentQ];
 
         var currentLogo = $('<img>').attr("src", currentTeam.img).addClass("logo");
 
@@ -226,8 +227,8 @@ $(document).ready(function() {
         ];
 
         var shuffleAnswers = function(possibleAnswers) {
-            for (var i = possibleAnswers.length - 1; i > 0; i--) {  //* got the shuffle Array function from stack overflow
-                var j = Math.floor(Math.random() * (i + 1));		// link: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+            for (var i = possibleAnswers.length - 1; i > 0; i--) {  
+                var j = Math.floor(Math.random() * (i + 1));		
                 var temp = possibleAnswers[i];
                 possibleAnswers[i] = possibleAnswers[j];
                 possibleAnswers[j] = temp;
@@ -247,14 +248,30 @@ $(document).ready(function() {
             questionDiv.append(shuffledAnswers[3]);
         }
 
-        
         createQuestionDiv();
-
     }
 
 
-    	var score = $('<p>');
-    	score.attr("id", "score")
+
+    var modalButton = $(".instructions");
+    var modalDiv = $(".modal");
+
+    modalButton.on("click", function(){
+    	var modalBox = $('<div>');
+    	modalBox.addClass("modal-box");
+    	console.log(modalButton);
+    	modalBox.text("You think you know your sports teams? Well if you want to test your knowledge, try to Name. That. Logo. It's simple. Once you click 'BEGIN', you will have 45 seconds to guess as many team logos as you can from all four American professional sports leagues. If you get to 20, YOU WIN! Try it out by clicking through below.");
+    	var closeButton = $("<button>");
+    	closeButton.addClass("close")
+    	closeButton.text("CLOSE");
+    	closeButton.on("click", function(){
+    		modalBox.hide();
+    	});
+    	modalBox.append(closeButton);
+    	modalDiv.append(modalBox);
+    })
+
+
 
     function trackScore() {
     	score.text(currentQ);
@@ -266,11 +283,9 @@ $(document).ready(function() {
     //this button starts the game
 
     function checkWin() {
-        if (rightAnswers.length === 20 && sec !== 0) {
+        if (rightAnswers.length === 20) {
             alert("YOU WON!");
-            sec = 0;
-        } else if (sec === 0) {
-        	alert("BOOOOO!!!!")
+            clearInterval(timer);
         }
     }
 
@@ -286,22 +301,23 @@ $(document).ready(function() {
 
     function play() {
         playButton.remove();
+        timer();
         body.append(countdown);
         countdown.show();
-        timer();
     }
 
     function createGame() {
         body.css("background-image", "url(https://www.nationalacademyofathletics.com/bbbg.jpg");
         $('#gameTitle').hide();
         frontButton.hide();
-        $('.instructions').hide();
+        modalDiv.hide();
         playButton.attr("id", "begin");
         playButton.text("BEGIN!");
         container.show();
         scoreCard.show();
         body.append(playButton);
         body.append(container);
+
     }
 
     function correctGuess() {

@@ -17,7 +17,7 @@ h1 {
 #play {
 	position: absolute;
 	left: 45%;
-	top: 65%;
+	top: 70%;
 	width: 200px;
 	height: 160px;
 	background-color: yellow;
@@ -124,17 +124,43 @@ img {
 .instructions {
 	position: absolute;
 	top: 45%;
-	left: 48%;
-	width: 120px;
-	height: 70px;
+	left: 45.4%;
+	width: 190px;
+	height: 130px;
 	font-family: 'Holtwood One SC', serif;
 	text-align: center;
-	font-size: 15px;
+	font-size: 26px;
 }
 
+.modal-box {
+	display: flex;
+	position: absolute;
+	width: 740px;
+	height: 135px;
+	border: 2px solid black;
+	background-color: white;
+	left: 25%;
+	top: 45%;
+	font-size: 22px;
+	background-color: #5B9621;
+	color: white;
+	font-family: 'Itim', cursive;
+	padding-left: 4px;
+	}
 
 
+.close {
+	position: relative;
+	display: flex;
+	width: 160px;
+	height: 50px;
+	justify-content: center;
+	background-color: yellow;
+	color: blue;
+	font-family: impact;
+	font-size: 16px;
 
+}
 
 
 
