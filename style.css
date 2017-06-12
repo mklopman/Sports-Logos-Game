@@ -1,52 +1,61 @@
 body {
+	background-image: url("http://awswallpapershd.com/wp-content/uploads/2016/06/Baseball-Field-Wallpaper-For-Iphone.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: vw;
+	height: vh;
+}
+
+h1 {
 	display: flex;
-	background-color: red;
+	flex-direction: row;
+	justify-content: center;
+	font-family: 'Londrina Shadow', cursive;
+	font-size: 150px;
+}
+
+#play {
+	position: absolute;
+	left: 45%;
+	top: 65%;
+	width: 200px;
+	height: 150px;
+	background-color: yellow;
+}
+
+#container {
+	display: none;
+	display: flex;
+	margin: 0 auto;
+	width: 900px;
+	height: 675px;
 }
 
 
 #counter {
-	background-color: yellow;
-	font-size: 20px;
-	width: 30px;
-	height: 30px;
+	position: absolute;
+	display: flex;
+	top: 0;
+	left: 0;
+	font-size: 110px;
+	width: 120px;
+	height: 120px;
 }
 
-.logo {
+img {
+	position: relative;
 	display: flex;
-	justify-content: center;
+	margin: auto 0;
+	left: 50%;
 }
 
 
-.question-div {
-	display: flex;
+.option {
+	display: inline-flex;
 	flex-direction: row;
-	align-items: center;
-}
-
-.correctAnswer {
-	display: flex;
-	width: 75px;
-	height: 50px;
-
-}
-
-
-.wrong1 {
-	display: flex;
-	width: 75px;
-	height: 50px;
-}
-
-.wrong2 {
-	display: flex;
-	width: 75px;
-	height: 50px;
-}
-
-.wrong3 {
-	display: flex;
-	width: 75px;
-	height: 50px;
+	align-items: stretch;
+	width: 85px;
+	height: 65px;
 }
 
 
