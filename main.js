@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+	var timer;
     //** LANDING PAGE: set up a function for the 
     // button that takes user to the game page */
     // 
@@ -163,9 +163,9 @@ $(document).ready(function() {
 
     var container = $('<div>');
     container.attr("id", "container");
-    
-    	var score = $('<p>');
-    	score.attr("id", "score")
+
+    var score = $('<p>');
+    score.attr("id", "score")
 
     var countdown = $('<div>');
     countdown.attr("id", "counter");
@@ -173,7 +173,7 @@ $(document).ready(function() {
     var scoreCard = $('<div>');
     scoreCard.attr("id", "score-card")
 
-	var selectedLogos = []
+    var selectedLogos = []
     var rightAnswers = []
     var currentQ = 0
     var randomLogo = $('<img>'); // declaring a new img in memory
@@ -198,16 +198,8 @@ $(document).ready(function() {
     var randomizedLogos = shuffleLogos(logos);
 
     // var getTeam = function(array){
-    var sec = 45;
-    var timer = function() {
-        setInterval(function() {
-            $(countdown).text(sec--);
-            if (sec === -2) {
-                $(countdown).fadeOut('fast');
-                alert('BOOOOOO!!!!!!')
-            }
-        }, 1000);
-    }
+
+
 
 
 
@@ -227,8 +219,8 @@ $(document).ready(function() {
         ];
 
         var shuffleAnswers = function(possibleAnswers) {
-            for (var i = possibleAnswers.length - 1; i > 0; i--) {  
-                var j = Math.floor(Math.random() * (i + 1));		
+            for (var i = possibleAnswers.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
                 var temp = possibleAnswers[i];
                 possibleAnswers[i] = possibleAnswers[j];
                 possibleAnswers[j] = temp;
@@ -256,27 +248,27 @@ $(document).ready(function() {
     var modalButton = $(".instructions");
     var modalDiv = $(".modal");
 
-    modalButton.on("click", function(){
-    	var modalBox = $('<div>');
-    	modalBox.addClass("modal-box");
-    	console.log(modalButton);
-    	modalBox.text("You think you know your sports teams? Well if you want to test your knowledge, try to Name. That. Logo. It's simple. Once you click 'BEGIN', you will have 45 seconds to guess as many team logos as you can from all four American professional sports leagues. If you get to 20, YOU WIN! Try it out by clicking through below.");
-    	var closeButton = $("<button>");
-    	closeButton.addClass("close")
-    	closeButton.text("CLOSE");
-    	closeButton.on("click", function(){
-    		modalBox.hide();
-    	});
-    	modalBox.append(closeButton);
-    	modalDiv.append(modalBox);
+    modalButton.on("click", function() {
+        var modalBox = $('<div>');
+        modalBox.addClass("modal-box");
+        console.log(modalButton);
+        modalBox.text("You think you know your sports teams? Well if you want to test your knowledge, try to Name. That. Logo. It's simple. Once you click 'BEGIN', you will have 45 seconds to guess as many team logos as you can from all four American professional sports leagues. If you get to 20, YOU WIN! Try it out by clicking through below.");
+        var closeButton = $("<button>");
+        closeButton.addClass("close")
+        closeButton.text("CLOSE");
+        closeButton.on("click", function() {
+            modalBox.hide();
+        });
+        modalBox.append(closeButton);
+        modalDiv.append(modalBox);
     })
 
 
 
     function trackScore() {
-    	score.text(currentQ);
-    	scoreCard.append(score);
-    	// container.append(scoreCard);
+        score.text(currentQ);
+        scoreCard.append(score);
+        // container.append(scoreCard);
     }
 
 
@@ -301,7 +293,14 @@ $(document).ready(function() {
 
     function play() {
         playButton.remove();
-        timer();
+        var sec = 45;
+        timer = setInterval(function() {
+            $(countdown).text(sec--);
+            if (sec === -2) {
+                $(countdown).fadeOut('fast');
+                alert('BOOOOOO!!!!!!')
+            }
+        }, 1000);
         body.append(countdown);
         countdown.show();
     }
