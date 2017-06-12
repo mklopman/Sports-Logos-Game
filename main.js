@@ -200,9 +200,10 @@ $(document).ready(function() {
     var timer = function() {
         setInterval(function() {
             $(countdown).text(sec--);
-            if (sec == -1) {
+            if (sec === -2) {
                 $(countdown).fadeOut('fast');
                 clearInterval(timer);
+                alert('you suck looserface')
             }
         }, 1000);
     }
@@ -263,6 +264,16 @@ $(document).ready(function() {
 
 
     //this button starts the game
+
+    function checkWin() {
+        if (rightAnswers.length === 20 && sec !== 0) {
+            alert("YOU WON!");
+            sec = 0;
+        } else if (sec === 0) {
+        	alert("BOOOOO!!!!")
+        }
+    }
+
     playButton.click(function() {
         play();
         game();
@@ -271,15 +282,6 @@ $(document).ready(function() {
     function game() {
         displayNextQuestion();
     }
-
-    function checkWin() {
-        if (rightAnswers.length === 20 && sec !== 0) {
-            alert("YOU WON!");
-        } else if (sec === 1) {
-        	alert("BOOOOO!!!!")
-        }
-    }
-
 
 
     function play() {
