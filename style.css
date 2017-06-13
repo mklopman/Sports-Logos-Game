@@ -181,10 +181,20 @@ img {
 		font-size: 100px;
 	}
 
-	.option {
-		display: block;
+	/*.option {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		width: 130px;
+		height: 75px;
+		margin: 0 auto;
+		font-size: 22px;
+		background-color: white;
+		color: #5B9621;
+		font-family: 'Itim', cursive;
+		padding-left: 4px;
 	}
-}
+}*/
 
 
 

@@ -336,21 +336,21 @@ $(document).ready(function() {
         playButton.text("BEGIN!");
         container.show();
         scoreCard.show();
-        resetButton.show();
+        // resetButton.show();
         body.append(playButton);
         body.append(container);    
     }
 
-    resetButton.on("click", function(){
-			body.css("background-image", "url(http://awswallpapershd.com/wp-content/uploads/2016/06/Baseball-Field-Wallpaper-For-Iphone.jpg");
-        	container.hide();
-        	scoreCard.hide();
-        	playButton.hide();
-        	frontButton.show();
-        	$('#gameTitle').show();
-        	$('.modal').show();
-        	resetButton.hide();
-        })
+   //  resetButton.on("click", function(){
+			// body.css("background-image", "url(http://awswallpapershd.com/wp-content/uploads/2016/06/Baseball-Field-Wallpaper-For-Iphone.jpg");
+   //      	container.hide();
+   //      	scoreCard.hide();
+   //      	playButton.hide();
+   //      	frontButton.show();
+   //      	$('#gameTitle').show();
+   //      	$('.modal').show();
+   //      	resetButton.hide();
+   //      })
 
 
 
