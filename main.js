@@ -329,6 +329,7 @@ $(document).ready(function() {
     function createGame() {
         body.css("background-image", "url(https://www.nationalacademyofathletics.com/bbbg.jpg");
         $('#gameTitle').hide();
+        $('#gameTitle2').hide();
         frontButton.hide();
         modalDiv.hide();
         playButton.attr("id", "begin");
