@@ -17,7 +17,7 @@ My goal was to have a large array of objects, each having a logo image and a cor
 Keeping it dry was a whole other problem later on when I was making progress. It took some time condensing my code into cleaner functions that worked. 
 
 
-I also wanted to randomize the array of logos, but then I realized that the array is already randomized, since I selected 20 random teams. Randomizing how the answers was more important anyways, otherwise the correct answer would be in the same position every time. 
+Managed to randomize both the logos array so it shows up in a different order every time, plus the answers so the correct option doesn't show up in the same order every time. 
 
 Unsolved Problems: 
 
