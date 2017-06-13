@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var timer;
+
     //** LANDING PAGE: set up a function for the 
     // button that takes user to the game page */
     // 
@@ -157,37 +157,46 @@ $(document).ready(function() {
         img: "./logos/redwings.jpg"
     }]
 
-    var body = $('body'); // creating global variable for body
+    var body = $('body');  // setting up the main elements
+
     var playButton = $('<button>');
+
     var frontButton = $('#play');
 
-    var container = $('<div>');
+    var timer; // had to declare this globally to get the timer to work properly
+
+    var container = $('<div>');         // this container will hold the logo and the 4 multiple choice answers
     container.attr("id", "container");
 
-    var score = $('<p>');
+    var score = $('<p>'); 				// this will help track the amount of logos the user gets through
     score.attr("id", "score")
 
-    var countdown = $('<div>');
+    var countdown = $('<div>');  		// need this to use in the timer function
     countdown.attr("id", "counter");
 
-    var scoreCard = $('<div>');
+    var scoreCard = $('<div>');			// this will be helpful when I display the score 
     scoreCard.attr("id", "score-card")
 
-    var selectedLogos = []
-    var rightAnswers = []
-    var currentQ = 0
-    var randomLogo = $('<img>'); // declaring a new img in memory
+    var rightAnswers = [] // Empty array to store each correct answer in. This is key for the check for win function
+
+    var currentQ = 0 // sets to 0 so we can go through the entire logos array in the main function
+
     var right = $('<button>');
 
     body.append(scoreCard)
 
     var instructions = $('.instructions');
 
+    var resetButton = $('<button>')
+        resetButton.attr("id", "reset-btn");
+        resetButton.text("HOME");
+        body.append(resetButton);
+
 
     ////* got the shuffle Array function from stack overflow: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
     var shuffleLogos = function(logos) {
         for (var i = logos.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
+            var j = Math.floor(Math.random() * (i + 1));  // Randomized the logos so the order changes every time. 
             var temp = logos[i];
             logos[i] = logos[j];
             logos[j] = temp;
@@ -195,20 +204,14 @@ $(document).ready(function() {
         return logos;
     }
 
-    var randomizedLogos = shuffleLogos(logos);
+    var randomizedLogos = shuffleLogos(logos); // I stored the randomized logos into a global variable so I can use it in the main function. 
 
-    // var getTeam = function(array){
+    var currentTeam = {}; // creating an empty object globally so we can use it in the function that sets up the logo and 4 answers
 
+    var displayNextQuestion = function() {  		// This function IS THE GAME pretty muc
+        currentTeam = randomizedLogos[currentQ];	// 
 
-
-
-
-    var currentTeam = {};
-
-    var displayNextQuestion = function() {
-        currentTeam = randomizedLogos[currentQ];
-
-        var currentLogo = $('<img>').attr("src", currentTeam.img).addClass("logo");
+        var currentLogo = $('<img>').attr("src", currentTeam.img).addClass("logo"); // Sets up the logo
 
 
         var possibleAnswers = [
@@ -219,8 +222,8 @@ $(document).ready(function() {
         ];
 
         var shuffleAnswers = function(possibleAnswers) {
-            for (var i = possibleAnswers.length - 1; i > 0; i--) {
-                var j = Math.floor(Math.random() * (i + 1));
+            for (var i = possibleAnswers.length - 1; i > 0; i--) {     //** I wanted to randomize the answers to the correct one doesn't
+                var j = Math.floor(Math.random() * (i + 1));			// always show up in the same spot */
                 var temp = possibleAnswers[i];
                 possibleAnswers[i] = possibleAnswers[j];
                 possibleAnswers[j] = temp;
@@ -228,12 +231,12 @@ $(document).ready(function() {
             return possibleAnswers;
         }
 
-        var shuffledAnswers = shuffleAnswers(possibleAnswers);
+        var shuffledAnswers = shuffleAnswers(possibleAnswers); // I stored those random answers in a variable, just like the logos earlier. 
 
-        var createQuestionDiv = function() {
-            var questionDiv = $("<div>").addClass("question-div");
-            container.append(currentLogo);
-            container.append(questionDiv);
+        var createQuestionDiv = function() {  						// creating a div to append the answers to made flexbox easier to use
+            var questionDiv = $("<div>").addClass("question-div");  // Giving the div a class so I can style it in CSS
+            container.append(currentLogo);							//** adding the logo and all the answers to the div, and adding that
+            container.append(questionDiv);							// to the container, which has already been added to the body */
             questionDiv.append(shuffledAnswers[0]);
             questionDiv.append(shuffledAnswers[1]);
             questionDiv.append(shuffledAnswers[2]);
@@ -248,11 +251,17 @@ $(document).ready(function() {
     var modalButton = $(".instructions");
     var modalDiv = $(".modal");
 
+    // Created the modal animation via the DOM. 
+
     modalButton.on("click", function() {
         var modalBox = $('<div>');
+        modalBox.animate({
+            width: "700px",
+            height: "135px",
+        }, "slow")
         modalBox.addClass("modal-box");
         console.log(modalButton);
-        modalBox.text("You think you know your sports teams? Well if you want to test your knowledge, try to Name. That. Logo. It's simple. Once you click 'BEGIN', you will have 45 seconds to guess as many team logos as you can from all four American professional sports leagues. If you get to 20, YOU WIN! Try it out by clicking through below.");
+        modalBox.text("You think you know your sports teams? Well, if you want to test your knowledge, try to Name. That. Logo. It's simple: Once you click 'BEGIN', you will have 45 seconds to guess as many team logos as you can from all four North American pro sports leagues. If you get to 20, YOU WIN! Try it out by clicking through below.");
         var closeButton = $("<button>");
         closeButton.addClass("close")
         closeButton.text("CLOSE");
@@ -272,7 +281,7 @@ $(document).ready(function() {
     }
 
 
-    //this button starts the game
+    // if the empty array eventually has 20 correct answes in it, the user wins
 
     function checkWin() {
         if (rightAnswers.length === 20) {
@@ -281,15 +290,22 @@ $(document).ready(function() {
         }
     }
 
+    // clicking the "begin" button starts the game for the user
+
     playButton.click(function() {
         play();
         game();
     })
 
+
+    // Calling the function that displays everything here, so we can call it on the play button. 
+
     function game() {
         displayNextQuestion();
     }
 
+
+//* Play the game by clicking the 'BEGIN' button. This also starts the timer. 
 
     function play() {
         playButton.remove();
@@ -305,6 +321,11 @@ $(document).ready(function() {
         countdown.show();
     }
 
+
+    //* This will create te entire game's layout, by hiding everything on the landing page
+    // and displaying the reset button, changing the background, plus the play button, score card
+    // and the container that holds everything. 
+
     function createGame() {
         body.css("background-image", "url(https://www.nationalacademyofathletics.com/bbbg.jpg");
         $('#gameTitle').hide();
@@ -314,10 +335,28 @@ $(document).ready(function() {
         playButton.text("BEGIN!");
         container.show();
         scoreCard.show();
+        resetButton.show();
         body.append(playButton);
-        body.append(container);
-
+        body.append(container);    
     }
+
+    resetButton.on("click", function(){
+			body.css("background-image", "url(http://awswallpapershd.com/wp-content/uploads/2016/06/Baseball-Field-Wallpaper-For-Iphone.jpg");
+        	container.hide();
+        	scoreCard.hide();
+        	playButton.hide();
+        	frontButton.show();
+        	$('#gameTitle').show();
+        	$('.modal').show();
+        	resetButton.hide();
+        })
+
+
+
+//* This function is how the user goes from logo to the next -- only by clicking the correct
+// answer. Once the user gets it right, that answer gets pushed into the empty array that will store
+// each correct answer. It's also tracking the score and checking for win for each logo. If the user
+// hasn't won, the next logo will be displayed. 
 
     function correctGuess() {
         rightAnswers.push(currentTeam);
@@ -328,9 +367,8 @@ $(document).ready(function() {
         displayNextQuestion();
     }
 
+// Clicking the button on the landing page that says "Wanna play?" will create the game page. 
 
-
-    // this button creates the game page
     frontButton.click(function() {
         createGame();
 

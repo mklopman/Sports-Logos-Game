@@ -2,8 +2,8 @@ body {
 	background-image: url("http://awswallpapershd.com/wp-content/uploads/2016/06/Baseball-Field-Wallpaper-For-Iphone.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
-	width: vw;
-	height: vh;
+	width: 100vw;
+	height: 100vh;
 }
 
 h1 {
@@ -119,6 +119,10 @@ img {
 	text-align: center;
 }
 
+#reset-btn {
+	display: none;
+}
+
 
 
 .instructions {
@@ -142,11 +146,11 @@ img {
 	left: 25%;
 	top: 45%;
 	font-size: 22px;
-	background-color: #5B9621;
-	color: white;
+	background-color: white;
+	color: #5B9621;
 	font-family: 'Itim', cursive;
 	padding-left: 4px;
-	}
+}
 
 
 .close {
@@ -162,7 +166,15 @@ img {
 
 }
 
+@media (max-width: 920px) {
+	h1 {
+		font-size: 100px;
+	}
 
+	.option {
+		display: block;
+	}
+}
 
 
 

@@ -12,6 +12,12 @@ My goal was to have a large array of objects, each having a logo image and a cor
 
 I also wanted to randomize the array of logos, but then I realized that the array is already randomized, since I selected 20 random teams. Randomizing how the answers was more important anyways, otherwise the correct answer would be in the same position every time. 
 
+Wireframes:
+
+![](./logos/final-landing-page.png)
+![](./logos/final-game-page.png)
+
+
 Problems:
 
 My biggest issue at the beginning with setting up my functions and figuring out which elements I should create with global scope. I thought I did a better job at pseudo coding this time around, which was a big help in structuring my code and making it clean. 
